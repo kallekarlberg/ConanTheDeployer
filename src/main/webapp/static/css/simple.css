@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body {
+	width:700px;
+	margin:50px auto 50px auto;
+    font-family:"Palatino Linotype","Book Antiqua",Palatino,serif;
+	font-size:15px;
+    background-color:#d0e4fe;
+}
+
+content {
+    margin: 5em auto;
+    width: 40em;
+}
+
+.securityHiddenUI, .securityHiddenUI * {
+    background-color: #ff4500;
+}
+
+a img {
+	border:none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#appDetails {
+	position:absolute;
+	visibility:hidden;
+    left:350px;
+    top:20px;
+    bottom:0px;
+    width:200px;
+}

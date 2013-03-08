@@ -1,0 +1,28 @@
+def jmeterLoc = "$projectDir/tools/apache-jmeter-2.8"
+def jmeterTestPlans="$projectDir/src/test/resources/load"
+
+configurations {
+	jmeter
+}
+
+dependencies {
+	jmeter files(jmeterLoc+'extras/ant-jmeter-1.1.1.jar')
+}
+
+
+task jMeter << {
+	ant.taskdef( name:"jmeter",classname:"org.programmerplanet.ant.taskdefs.jmeter.JMeterTask") {
+		classpath { 
+			fileset(dir: "$jmeterLoc/extras", includes: 'ant-jmeter-1.1.1.jar') 
+		}
+	}
+	ant.jmeter(jmeterhome:"$jmeterLoc",resultlog:"${buildDir}/test-results/JMeterResults-10-users.jtl") {
+		testplans(includes:"*.jmx",
+		dir:jmeterTestPlans)
+		jvmarg(value: "-Xms512m")
+		property(name:'request.threads',value:10)
+		property(name:'request.loop',value:20)
+  }
+}
+tasks.jMeter.description = "Runs all jmeter test plans in $jmeterTestPlans"
+	

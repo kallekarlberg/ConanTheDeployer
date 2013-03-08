@@ -1,0 +1,3 @@
+id,release_name,created_by,created_when,approved,approved_by,approved_when
+1,PMR-1,nisse,2013-02-07 15:10:00,true,pelle,2013-02-07 15:10:00
+2,R-4711,kalle,2013-02-07 21:00:00,false,NULL,NULL
