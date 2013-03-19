@@ -30,7 +30,6 @@ bin
 # Logs and databases #
 ######################
 *.log
-*.sql
 *.sqlite
 *.db
 
