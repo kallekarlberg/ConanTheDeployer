@@ -17,6 +17,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,18 +33,17 @@ public class DeployerServiceImpl {
     public DeployerServiceImpl() {}
 
     @PUT
-    @Path("{appName}/")
-    public void deployApp(@PathParam("appName") String appName,
-            @QueryParam("version") String version,
-            @QueryParam("host") String host) {
-        System.err.println("hello world");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deployApp(@QueryParam("app") DeployedApp app) {
+    	cLogger.info("Application {} reporting as deployed@{}",app.getName(),app.getHost());
+    	saveApp(app);
     }
 
-    @PUT
+	@PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void releaseBundle(@QueryParam("bundle") List<DeployedApp> bundle ) {
         cLogger.info("Releasing bundle with {} apps",bundle.size());
-        saveApps(bundle);
+        releaseBundle(bundle);
     }
 
     @GET
@@ -81,6 +81,22 @@ public class DeployerServiceImpl {
             HibernateUtils.safeCloseSession(s);
         }
     }
+    
+    private static void saveApp( DeployedApp app ) {
+    	Session s = null;
+        Transaction dbTx = null;
+        try {
+            s = HibernateUtils.SESSION_FACTORY.openSession();
+            dbTx = s.beginTransaction();
+            s.save(app);
+            dbTx.commit();
+        } catch ( HibernateException e ) {
+            cLogger.error("error saving app",e);
+            dbTx.rollback();
+        } finally {
+            HibernateUtils.safeCloseSession(s);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     private static List<DeployedApp> getDeployedApps(String appName, String version, String host, Session s) {
@@ -92,6 +108,7 @@ public class DeployerServiceImpl {
             crit.add(Restrictions.eq("version", version));
         if ( host != null ) 
             crit.add(Restrictions.eq("host", host));
+        crit.addOrder(Order.desc("when"));
         return crit.list();
     }
 }

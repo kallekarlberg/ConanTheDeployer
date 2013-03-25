@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cabin|Cardo" />
 <link rel="stylesheet" href="static/css/tab-tab.css" />
 <link rel="stylesheet" href="static/css/simple.css" />
+<link rel="stylesheet" href="static/css/table-style.css" />
 
 </head>
 
@@ -16,20 +17,39 @@
 
 <nav>
 	<ul>
-		<li><a href="#appTab">Apps</a></li>
+		<li><a href="#feedTab">Feed</a></li>
 		<li><a href="#hostTab">Hosts</a></li>
 		<li><a href="#bundleTab">Bundles</a></li>
 	</ul>
 </nav>
 
 
-<section id="appTab">
+<section id="feedTab">
 	<div class="appListContainer">
 	   <header>
-	      <h2>Deployed apps</h2>
-	      <input id="app_search_filter" placeholder="Filter...">
+	      <div id="toolbar">
+      	  	<input type="button" name="createRelease" value="Create release" id="createRelease" />
+	      </div>
+	      <h2>Deployed apps feed</h2>
+	      <div id="search">
+        	<label for="filter">Filter</label> <input type="text" name="filter" value="" id="filter" />
+      	  </div>
 	   </header>
 	   <div id="appsSection">
+	   		<table cellpadding="5" cellspacing="1" id="appTable">  
+	  			<thead>  
+	    			<tr>  
+	      				<th>When</th>
+	      				<th>Name</th>  
+	      				<th>Version</th>  
+	      				<th>Where</th>  
+	      				<th>Env</th>  
+	      				<th>Who</th>  
+	    			</tr>  
+	  			</thead>  
+	  			<tbody>
+			  	</tbody>  
+			</table>  
 			<ul id="deployedApps"></ul>
 	   </div>
 	   <div id="appDetails">

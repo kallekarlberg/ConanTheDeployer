@@ -24,6 +24,9 @@ databaseChangeLog {
             column(name: 'APPROVED', type: 'BOOLEAN')
             column(name: 'APPROVED_BY', type: 'VARCHAR(200)')
             column(name: 'APPROVED_WHEN', type: 'TIMESTAMP')
+            column(name: 'DEV_NOTES', type: 'VARCHAR(200)')
+            column(name: 'CSO_NOTES', type: 'VARCHAR(200)')
+            column(name: 'PRODUCT_NOTES', type: 'VARCHAR(200)')
         }
     }
     changeSet(id: 'bundles-content-table-def', author: 'karl-johankarlberg') {

@@ -23,6 +23,9 @@ DROP TABLE IF EXISTS DeployedApp;
 CREATE TABLE DeployedApp (
 	id bigint primary key,
 	name varchar(200),
+	who varchar(200),
+	when timestamp,
 	version varchar(100),
 	host varchar(200),
+	environment  varchar(200),
 );

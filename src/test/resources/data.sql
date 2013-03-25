@@ -15,7 +15,11 @@ insert into conanRole (id,username,role) values (6,'bombata', 'user');
 
 insert into conanPermission (id,role,permission) values (1,'admin', 'leverage');
 
-insert into DeployedApp (id,name,version,host) values (1,'MyApp', '1.0.0','gandalf');
-insert into DeployedApp (id,name,version,host) values (2,'MyApp', '1.0.0','frodo');
-insert into DeployedApp (id,name,version,host) values (3,'FundTransferMatcher', '3.2.0','smaug');
-insert into DeployedApp (id,name,version,host) values (4,'DummyOfflineBank', '1.0.3','dev03');
+insert into DeployedApp (id,name,who,when,version,host,environment) 
+	values (1,'MyApp', 'jenkins','2013-01-05 12:50:50.0','1.0.0','gandalf','dev');
+insert into DeployedApp (id,name,who,when,version,host,environment) 
+	values (2,'MyApp', 'kkarlberg','2013-01-08 15:50:50.0','1.0.0','frodo','qa');
+insert into DeployedApp (id,name,who,when,version,host,environment) 
+	values (3,'FundTransferMatcher','pelle','2013-02-10 09:10:50.0','3.2.0','smaug','prod');
+insert into DeployedApp (id,name,who,when,version,host,environment) 
+	values (4,'DummyOfflineBank', 'hacker','2013-03-05 08:40:50.0','1.0.3','dev03','systest');
