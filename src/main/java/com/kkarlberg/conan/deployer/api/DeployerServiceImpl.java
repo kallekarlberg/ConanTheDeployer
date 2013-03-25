@@ -1,5 +1,7 @@
 package com.kkarlberg.conan.deployer.api;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -48,14 +50,17 @@ public class DeployerServiceImpl {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<DeployedApp> getDeployedApps(@QueryParam("appName") String appName,
+    public List<DeployedApp> getDeployedApps(@QueryParam("id") long id, @QueryParam("appName") String appName,
             @QueryParam("version") String version,
             @QueryParam("host") String host) {
-        cLogger.info("Obtaining info on app {}, version {} on host "+ host,appName,version);
+    	if ( id != 0 )
+    		cLogger.info("Obtaining application with id {}",id);
+    	else
+    		cLogger.info("Obtaining info on app {}, version {} on host "+ host,appName,version);
         Session s = null;
         try {
             s = HibernateUtils.SESSION_FACTORY.openSession();
-            return getDeployedApps(appName,version,host,s);
+            return getDeployedApps(id, appName,version,host,s);
         } catch (HibernateException e) {
             cLogger.error("Database issues...",e);
             throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
@@ -99,8 +104,12 @@ public class DeployerServiceImpl {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<DeployedApp> getDeployedApps(String appName, String version, String host, Session s) {
-        Criteria crit = s.createCriteria(DeployedApp.class);
+    private static List<DeployedApp> getDeployedApps(long id, String appName, String version, String host, Session s) {
+        if ( id != 0 ) {
+        	DeployedApp app = (DeployedApp) s.get(DeployedApp.class, id);
+        	return Arrays.asList(app);
+        }
+    	Criteria crit = s.createCriteria(DeployedApp.class);
         //        crit.addOrder(Order.desc("when"));
         if ( appName != null ) 
             crit.add(Restrictions.eq("name", appName));
