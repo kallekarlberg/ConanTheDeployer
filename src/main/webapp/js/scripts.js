@@ -1,21 +1,35 @@
 var rootURL = "http://localhost:8383/ConanTheDeployer/deployedApps";
 
 initTabs();
+draw();
 findAllApps();
 
 $(document).on('click','#appTable a', function() {
-	var name = this.id;
-	findByName(name);
+	var id = this.id;
+	$.getJSON(rootURL+'?id='+id,renderRelease);
 });
+
+function draw() {
+	$('#qRelease').hide()
+}
 
 function findAllApps() {
 	console.log('findAll');
 	$.getJSON(rootURL,renderList);
 }
 
-function findByName(name) {
-	console.log('findById: ' + name);
-	$.getJSON(rootURL+"?appName="+name, renderDetails);
+function renderRelease(app) {
+	var a = app.deployedApp[0];
+	console.log('releaseId: ' + a.id);
+	$('#relAppId').val(a.id);
+	$('#relAppName').val(a.name);
+	$('#relAppVer').val(a.version);
+	$('#qRelease').show()
+}
+
+function releaseApp() {
+	
+	alert($('#relAppName').val() +':'+$('#relAppVer').val()+ ' released');
 }
 
 function zebraRows(selector, className) {
@@ -111,16 +125,7 @@ function renderList(data) {
 	var list = data.deployedApp;
 	$('#appTable').remove("tr:gt(0)");
 	$.each(list, function(index, app) {
-		$('#appTable').append('<tr><td>'+ app.when+'</td><td><a href="#name" id="'+ app.name+'">'+app.name+'</a></td><td>'+ app.version+'</td><td>'+ app.host+'</td><td>'+ app.environment+'</td><td>'+ app.who+'</td><td><a href="#release" id="'+app.id+'">Q-release</a></td></tr>');
-	});
-}
-
-function renderDetails(data) {
-	var list = data.deployedApp;
-	$('#deployedApps li').remove();
-	//add header
-	$.each(list, function(index, app) {
-		$('#deployedApps').append('<li><a href="#" id="'+ app.id+'">'+app.name+'</a></li>');
+		$('#appTable').append('<tr><td>'+ app.when+'</td><td>'+app.name+'</td><td>'+ app.version+'</td><td>'+ app.host+'</td><td>'+ app.environment+'</td><td>'+ app.who+'</td><td><a href="#release" id="'+app.id+'">Q-release</a></td></tr>');
 	});
 }
 

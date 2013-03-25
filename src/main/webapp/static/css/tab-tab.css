@@ -1,12 +1,5 @@
 @charset "utf-8";
 
-/*
-** @author			HTML5 anchor
-** @license			http://creativecommons.org/licenses/by/3.0/
-** @version			1.0
-** @link			http://html5anchor.com
-*/
-
 
 .tabtab {
 	font-family:"Cabin",sans-serif;
@@ -56,7 +49,7 @@ Tab navigation
 
 .tabtab nav ul li a {
 	padding:10px 20px 10px 20px;
-	font-size:15px;
+	font-size:12px;
 	line-height:1;
 	text-decoration:none;
 	border:solid 1px;
@@ -116,7 +109,7 @@ Tab sections
 position:relative;
 margin:-1px 0 0 0;
 padding:20px;
-font-size:15px;
+font-size:10px;
 line-height:1.5;
 border:solid 1px;
 -moz-border-radius:5px;

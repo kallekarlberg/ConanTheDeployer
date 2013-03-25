@@ -50,10 +50,15 @@
 	  			<tbody>
 			  	</tbody>  
 			</table>  
-			<ul id="deployedApps"></ul>
 	   </div>
-	   <div id="appDetails">
-	   		<h5>Details</h5>
+	   <div id="qRelease">
+	   		<h3>QUICK release</h3>
+	   		<input id="relAppId" type="text" disabled/>
+	   		<label>App name:</label>
+	   		<input id="relAppName" type="text"/>
+	   		<label>App version:</label>
+	   		<input id="relAppVer" type="text"/>
+	   		<button type="button" onclick="releaseApp()">RELEASE!</button> 
 	   </div>
 	</div>
 </section>
