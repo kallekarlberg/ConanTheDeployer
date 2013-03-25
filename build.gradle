@@ -4,7 +4,6 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'h2'
 apply plugin: 'liquibase'
-//apply plugin: 'tomcat'
 apply from: 'jmeter.gradle'
 
 buildscript {
@@ -18,7 +17,6 @@ buildscript {
 	dependencies {
         classpath 'jamescarr:h2-gradle-plugin:0.8.2'
         classpath 'com.augusttechgroup:gradle-liquibase-plugin:0.6.1'
-//		classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.6'
 		classpath "com.h2database:h2:$h2Version"
 	}
 }
@@ -52,7 +50,9 @@ dependencies {
           
           'org.codehaus.jackson:jackson-mapper-asl:1.8.3',
           'jstl:jstl:1.2',
-          'org.hibernate:hibernate-core:4.1.9.Final'
+          'org.hibernate:hibernate-core:4.1.9.Final',
+          'org.apache.httpcomponents:httpclient:4.2.2',
+          'org.apache.httpcomponents:httpmime:4.2.2'
   compile("org.apache.cxf:cxf-rt-frontend-jaxrs:${cxfVersion}")  { exclude group: "org.springframework" }
   compile("org.apache.cxf:cxf-rt-core:${cxfVersion}")  { exclude group: "org.springframework" }
   compile("org.apache.cxf:cxf-rt-rs-extension-providers:${cxfVersion}")  { exclude group: "org.springframework" }
@@ -62,13 +62,6 @@ dependencies {
       exclude group: 'org.seleniumhq.selenium', module: 'selenium-chrome-driver'
   }
   
-  /*
-  tomcat 	"org.apache.tomcat:catalina:${tomcatVersion}",
-			"org.apache.tomcat:coyote:${tomcatVersion}",
-			"org.apache.tomcat:jasper:${tomcatVersion}",
-			"org.apache.tomcat:dbcp:${tomcatVersion}"
-            */
-
   h2		"com.h2database:${h2Version}"
 			
   providedCompile 	'javax.servlet:servlet-api:2.5',
@@ -133,18 +126,6 @@ task selenium(type: Test, dependsOn: jettyDaemon) {
     testClassesDir = sourceSets.selenium.output.classesDir
     classpath = sourceSets.selenium.runtimeClasspath
 }
-
-/* TOMCAT
-tomcatRun {
-	httpPort = 8090
-	httpsPort = 8091
-}
-
-[tomcatRun, tomcatRunWar, tomcatStop]*.stopPort = 8090
-[tomcatRun, tomcatRunWar, tomcatStop]*.stopKey = 'foo'
-[tomcatRun, tomcatRunWar]*.configFile = file('src/test/resources/database-ctx.xml')
-[tomcatRun, tomcatRunWar]*.additionalRuntimeJars = configurations.h2
-*/
 
 /**
  * Configure jettyRun, jettyRunWar and jettyStop tasks.
