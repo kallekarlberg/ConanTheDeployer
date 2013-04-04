@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+table {
+	background-color: white;
+	-webkit-border-radius: 10px;
+	width: 100%;
+	font-size:10px;
+	padding: 10px;
+}
+th.sortable {
+	color: #666;
+	cursor: pointer;
+	text-decoration: underline;
+
+}
+th.sortable:hover { color: black; }
+th.sorted-asc, th.sorted-desc  { color: black; }
+
+td {
+	background-color: white;
+}
+td.odd {
+	background-color: #CCC;
+	color: white;
+}
+td.hovered {
+	background-color: lightblue;
+	color: #666;
+}
